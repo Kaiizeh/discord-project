@@ -58,7 +58,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "Discord",
+        "title": "discord-project",
         "width": 800
       }
     ]

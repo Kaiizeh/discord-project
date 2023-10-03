@@ -1,24 +1,31 @@
 <script setup>
-const props = defineProps(["serverName", "image", "isServer"]);
+defineProps({
+    "server": Object,
+    "isServer": Boolean,
+    "isSelect": Boolean,
+    "isVariant": Boolean
+});
 </script>
 
 <template>
-    <div class="badge-container" v-if="props.isServer">
-        <div v-if="props.image" class="badge badge-image">
-            <img :src="props.image" />
+    <div class="badge-container" v-if="isServer">
+        <div class="badge" :class="{ 'badge-standard': !isVariant, 'active': isSelect }" v-if="server.image">
+            <img :src="server.image" />
         </div>
-        <div v-else class="badge badge-name">
-            <span @if="!props.image">{{ props.serverName }}</span>
+        <div class="badge" :class="{ 'badge-standard': !isVariant, 'active': isSelect }" v-else>
+            <span class="font-semibold text-[20px]">{{ server.name.charAt(0) }}</span>
         </div>
     </div>
     <div class="badge-container" v-else>
-        <div class="badge badge-name">
+        <div class="badge" 
+        :class="{ 'badge-action': isVariant, 'badge-standard': !isVariant, 'active-action': (isSelect && isVariant), 'active-standard':  (isSelect && !isVariant)}"
+        >
             <slot></slot>
         </div>
     </div>
 </template>
 
-<style>
+<style scoped>
 .badge-container {
     width: 100%;
     height: 3.5rem;
@@ -26,7 +33,7 @@ const props = defineProps(["serverName", "image", "isServer"]);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0
+    margin: .5rem 0;
 }
 
 .badge {
@@ -37,8 +44,8 @@ const props = defineProps(["serverName", "image", "isServer"]);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem auto;
-    color: #F1F1F1;
+    margin: auto;
+    color: #FFFFFF;
     cursor: pointer
 }
 
@@ -51,11 +58,34 @@ const props = defineProps(["serverName", "image", "isServer"]);
     background: transparent;
 }
 
-.badge-name {
-    background: #525252;
+.badge-standard,
+.badge-action {
+    background: #2C2F33;
 }
 
-.badge-name:hover {
-    background: #6366f1;
+.badge-action {
+    color: #22c55e;
 }
+
+.badge-standard:hover {
+    background: #5865F2;
+}
+
+.badge-action:hover {
+    background: #22c55e;
+    color: #FFFFFF;
+}
+
+.active-standard {
+    background: #5865F2;
+    border-radius: 30%;
+    color: #FFFFFF;
+}
+
+.active-action {
+    background: #22c55e;
+    border-radius: 30%;
+    color: #FFFFFF;
+}
+
 </style>

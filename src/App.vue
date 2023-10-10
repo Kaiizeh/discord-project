@@ -34,10 +34,8 @@ provide('server', {
 onMounted(() => {
   PUBLIC_API.get("getServers")
     .then(res => {
-      console.log(res);
       const { data } = res;
       if(data.success) {
-        console.log(data.serverList);
         serverList.value = data.serverList;
       }
     });

@@ -4,16 +4,11 @@ import FirstStep from "./subComponents/FirstStep.vue";
 import SecondStep from "./subComponents/SecondStep.vue";
 import ThirdStep from "./subComponents/ThirdStep.vue";
 import { PUBLIC_API } from '../../../utils/constants';
+import { schema } from "../../schemas/server.schema";
 
 const { updateServerList, manageCreationServer } = inject("server");
 const step = ref(1);
-let server = {
-    name: null,
-    image: null,
-    members: [],
-    channels: [],
-    type: null
-}
+let server = schema();
 
 const nextStep = (pStep, options) => {
     switch(pStep) {
